@@ -4,6 +4,31 @@ Detailed instructions for using this skill with different AI models.
 
 ---
 
+## What to load (v3)
+
+Since v3.0.0 the skill is a folder, not a single file:
+
+```text
+mql5-ea-expert/
+  SKILL.md        core rules, workflow, red flags, reference map (always load)
+  references/     detail files the AI reads on demand (critical thinking, risk, time, patterns, ...)
+  templates/      compile-verified MQL5 SkillKit includes, reference EA, probe EA, indicator
+```
+
+- **Agents with a skills directory** (Claude Code, `npx skills add nawfdev/mq5_skills`): install the
+  whole folder; the AI opens `references/` and `templates/` when SKILL.md points to them.
+- **Chat uploads** (claude.ai, ChatGPT, Gemini): upload `SKILL.md` plus the references you need. For
+  strategy evaluation always add `references/critical-thinking.md`; for prop accounts
+  `references/risk-and-prop-firms.md` and `references/time-and-sessions.md`; for code
+  `references/mql5-patterns.md` and `references/pitfalls.md` plus the SkillKit `.mqh` files.
+- **Tools** (`tools/compile_mql5.py`, `tools/run_mt5_tester.py`, `tools/edge_check.py`) run on your
+  machine; chat-only AIs cannot run them, so ask the AI for the exact command and run it yourself.
+
+The platform-specific steps below still apply; where they say "upload SKILL.md", upload the files
+listed above.
+
+---
+
 ## 🔷 Setup for Claude (Anthropic)
 
 ### Method 1: Via Claude.ai Skills (Recommended)

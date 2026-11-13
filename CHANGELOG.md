@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-11-13
+
+Evidence-first rewrite. Every MQL5 snippet is compiled with MetaEditor; the reference EA was run
+in the MT5 Strategy Tester on real ticks; rules come from documented failures.
+
+### Added
+- `references/critical-thinking.md`: base rates, edge hypotheses, feasibility math for challenge
+  targets (R needed, gambler's-ruin odds), sample-size table, multiple testing, null baselines,
+  decision gates, look-ahead and execution checklists, honest reporting template.
+- `references/risk-and-prop-firms.md`, `backtesting-validation.md`, `time-and-sessions.md`,
+  `mql5-patterns.md`, `strategy-frameworks.md`, `indicators-and-ui.md`, `pitfalls.md`,
+  `grid-martingale.md`, `ctrader-porting.md`, `case-studies.md`.
+- SkillKit templates (0 errors, 0 warnings): `SkillKit_Time.mqh` (server/UTC/New York/Prague,
+  US and EU DST, per-timeframe new bar, minutes to session end), `SkillKit_Risk.mqh`
+  (`OrderCalcProfit` sizing that skips instead of clamping, volume-step rounding, margin check,
+  open risk to stops, `CSkPropGuard` with persisted daily snapshot, floating-loss shield, target
+  lock, remaining-room budget), `SkillKit_Trade.mqh` (filling/margin mode, tick-size prices,
+  stops/freeze levels, close by ticket, market-closed back-off, safe partial close),
+  `SkillKit_Structure.mqh` (confirmed, non-repainting swings).
+- `SkillKit_StructureBreakout.mq5` reference EA, `SkillKit_ServerTimeProbe.mq5` (measures the
+  broker's GMT offset, DST calendar and holiday early closes), `SkillKit_Swings.mq5` indicator.
+- `tools/compile_mql5.py`, `tools/run_mt5_tester.py`, `tools/edge_check.py`, `tools/test_tools.py`,
+  GitHub Actions workflow.
+- 17 behavioural evals (sizing, prop rules, time zones, indicator indexing, OnTester units,
+  feasibility, adversarial requests, research spiral, provenance).
+
+### Changed
+- `SKILL.md` rewritten as a compact core (prime directives, 7-step workflow, non-negotiables,
+  feasibility math, red-flag table, response format, reference map); detail moved to references.
+- `ea-blueprint.md` and `example-prompts.md` rewritten; time windows now state their zone
+  (Silver Bullet is 10:00-11:00 New York, not GMT).
+- `validate_repo.py` checks references are linked, version consistency, eval schema and lints
+  templates for forbidden patterns.
+
+### Fixed (bugs in v2 snippets)
+- Lot sizing clamped up to the minimum volume (risk multiplied); `NormalizeDouble(lot, 2)` for any step.
+- Session/kill-zone logic on `TimeGMT()` (not modelled by the Strategy Tester); kill zones in GMT.
+- `OnTester` compared `STAT_EQUITY_DD` (money) with a percent limit.
+- Indicator `OnCalculate` mixed series and non-series indexing.
+- Grid basket closed with `PositionClose(symbol)`; deprecated `Commission()`; `#property strict`.
+- Prop module used balance-based daily drawdown, server-day reset and only closed `_Symbol` trades.
+- Kelly fraction compared with a percent input (unit mismatch); martingale caps contradicted the text.
+- "pips = points x 10" rule (wrong for gold, indices, crypto).
+
+### Removed
+- v2 classes `CMultiTimeframeAnalysis`, `CMoneyManagement`, `CSafeGridSystem`, `CSafeMartingale`,
+  `CBacktestValidator` (replaced by SkillKit and the tools).
+
 ## [2.0.1] - 2026-05-20
 
 ### Changed

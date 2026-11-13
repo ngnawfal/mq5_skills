@@ -1,27 +1,26 @@
 # Roadmap
 
-## Completed in v2.0.0
+## Completed in v3.0.0
 
-- ✅ Canonical reusable snippets: risk engine, filters, position management, logging.
-- ✅ Strategy-specific prompt packs: CRT, SMC, ICT, Asian Range, Grid, Indicator.
-- ✅ Structured scoring checklist for AI-generated `.mq5` output (Section 13 + blueprint).
-- ✅ Expanded eval cases for common MQL5 patterns.
+- Compile-verified SkillKit templates and a MetaEditor compile checker.
+- Strategy Tester runner with EA-log summary.
+- Edge and challenge-odds calculator with a no-edge control.
+- Critical-thinking, risk, time, validation and case-study references.
+- CI for structure, evals and the statistics tools.
 
-## Near Term
+## Near term
 
-- Add CI workflow (GitHub Actions) to run `validate_repo.py` on every pull request.
-- Add sample generated EAs (complete `.mq5` files) demonstrating safe implementation.
-- Add MetaEditor compile error reference guide (common errors + fixes).
+- News blackout helper that works in the tester (imported event CSV) and live (MQL5 calendar).
+- Walk-forward helper for `run_mt5_tester.py` (chained optimise/test windows).
+- Random-direction null-baseline switch in the reference EA.
+- Parity-check script: compare two trade lists (MT5 report vs CSV) by entry time and direction.
 
-## Mid Term
+## Mid term
 
-- Add Telegram bot integration example (WebRequest pattern).
-- Add news filter implementation using MT5 Economic Calendar.
-- Add portfolio EA example (multi-symbol, correlated position sizing).
-- Add multilingual setup docs (Bahasa Indonesia, Spanish, Chinese).
+- cTrader cAlgo SkillKit equivalent (C#) with the same guards.
+- Multi-symbol guard (account exposure, correlated positions).
+- Translated quick-start (Bahasa Indonesia).
 
-## Long Term
+## Long term
 
-- Build automated static analysis for generated MQL5 code (Python AST-style parser).
-- Add strategy-specific eval packs with expected backtest metric ranges.
-- Add community-contributed prompt packs (breakout, mean-reversion, scalping).
+- Automated grading of `evals.json` answers (static checks on generated code + compile).

@@ -29,3 +29,8 @@ desktop.ini
 
 # Session change logs (local reference only)
 CHANGES.md
+
+# Python / tool output
+__pycache__/
+*.pyc
+tester_runs/
